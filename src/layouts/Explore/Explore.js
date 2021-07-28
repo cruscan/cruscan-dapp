@@ -1,32 +1,29 @@
-import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
-import Header from "../../components/Header/Header.js";
+import React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import Header from '../../components/Header/Header';
 
-
-import routes from "../../routes.js";
+import routes from '../../routes';
 
 const switchRoutes = (
     <Switch>
-      {routes.map((prop, key) => {
-          return (
+        {routes.map((prop, key) => (
             <Route
-              path={prop.layout + prop.path}
-              component={prop.component}
-              key={key}
+                path={prop.layout + prop.path}
+                component={prop.component}
+                // eslint-disable-next-line react/no-array-index-key
+                key={key}
             />
-          );
-      })}
-      <Redirect from="/admin" to="/admin/dashboard" />
+        ))}
+        <Redirect from="/admin" to="/admin/dashboard" />
     </Switch>
 );
 
 export default function Explore() {
-  return (
-      <>
-        <Header/>
-        <div>Sidebarx</div>
-        <div>{switchRoutes}</div>
-      </>
-    
-  );
+    return (
+        <>
+            <Header />
+
+            {/* <div>{switchRoutes}</div> */}
+        </>
+    );
 }

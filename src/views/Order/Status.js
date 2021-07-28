@@ -1,11 +1,4 @@
-import React from "react";
+import React from 'react';
 
-const Status = () => {
-  return (
-    <>
-      Hello this is status
-    </>
-  );
-};
-
+const Status = () => <>Hello this is statusssss</>;
 export default Status;
