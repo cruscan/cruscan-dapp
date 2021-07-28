@@ -29,6 +29,7 @@ import TableRow from '@material-ui/core/TableRow';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import Badge from '@material-ui/core/Badge';
+import axios from 'axios';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -382,6 +383,9 @@ export default function MiniDrawer() {
     const [open, setOpen] = React.useState(false);
     const [valueInput, setValueInput] = React.useState('');
     const [rowsState, setRowsState] = React.useState([]);
+    const [cidCruScan, setCidCruScan] = React.useState('');
+    const [cruScanLink, setCruScanLink] = React.useState('');
+
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -446,7 +450,16 @@ export default function MiniDrawer() {
         setRowsState([]);
     };
 
-    useEffect(() => {}, []);
+    useEffect(() => {
+        axios
+            .get(
+                'https://raw.githubusercontent.com/cruscan/release-info/main/v1.0.0.json'
+            )
+            .then((res) => {
+                setCidCruScan(res.data.cid);
+                setCruScanLink(`https://ipfs.io/ipfs/${res.data.cid}`);
+            });
+    }, []);
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -635,7 +648,7 @@ export default function MiniDrawer() {
                                                     wordWrap: 'break-word',
                                                 }}
                                             >
-                                                QmVLp2kWTvH3QyRAspmP439mdSnTNvwDut7SDk7A3FuuUj
+                                                {cidCruScan}
                                             </Box>
                                         </Grid>
                                         <Grid item xs={12}>
@@ -647,6 +660,8 @@ export default function MiniDrawer() {
                                                             root: classes.iconInCards,
                                                         }}
                                                         size="small"
+                                                        href={cruScanLink}
+                                                        target="_blank"
                                                     >
                                                         <ExitToAppIcon />
                                                     </IconButton>
@@ -658,6 +673,11 @@ export default function MiniDrawer() {
                                                             root: classes.iconInCards,
                                                         }}
                                                         size="small"
+                                                        onClick={() =>
+                                                            navigator.clipboard.writeText(
+                                                                cidCruScan
+                                                            )
+                                                        }
                                                     >
                                                         <FileCopyIcon />
                                                     </IconButton>
