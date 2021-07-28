@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme, withStyles } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -120,7 +122,7 @@ const useStyles = makeStyles((theme) => ({
         }),
     },
     menuButton: {
-        marginRight: 36,
+        marginRight: 8,
     },
     hide: {
         display: 'none',
@@ -160,13 +162,17 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2),
         textAlign: 'center',
         color: theme.palette.text.secondary,
+        height: '100%',
     },
     content: {
         flexGrow: 1,
         // display: 'flex',
         padding: theme.spacing(1),
     },
-    logo: { maxWidth: '190px', marginRight: 'auto' },
+    logo: {
+        maxWidth: '190px',
+        marginRight: 'auto',
+    },
     headerPadding: {
         height: 10,
     },
@@ -197,6 +203,11 @@ const useStyles = makeStyles((theme) => ({
         height: 28,
         margin: 4,
     },
+    hideOnSmall: {
+        [theme.breakpoints.down('xs')]: {
+            display: 'none',
+        },
+    },
 }));
 
 function createData(name, calories, fat, carbs, protein, price) {
@@ -215,13 +226,17 @@ function createData(name, calories, fat, carbs, protein, price) {
 }
 
 function Row(props) {
+    const classes = useStyles();
     const { row } = props;
     const [open, setOpen] = React.useState(false);
     const consensusDate = new Date(2021, 0, 26, 6, 56, 36);
     return (
         <>
             <TableRow>
-                <TableCell style={{ paddingRight: 0 }}>
+                <TableCell
+                    style={{ paddingRight: 0 }}
+                    className={classes.hideOnSmall}
+                >
                     <IconButton
                         aria-label="expand row"
                         size="small"
@@ -261,7 +276,7 @@ function Row(props) {
                         <CircularProgress size={20} />
                     )}
                 </TableCell>
-                <TableCell align="center">
+                <TableCell align="center" className={classes.hideOnSmall}>
                     {row.calculated_at ? (
                         new Date(
                             consensusDate.getTime() +
@@ -284,7 +299,7 @@ function Row(props) {
                         <CircularProgress size={20} />
                     )}
                 </TableCell>
-                <TableCell align="center">
+                <TableCell align="center" className={classes.hideOnSmall}>
                     {typeof row.prepaid === 'number' ? (
                         row.prepaid
                     ) : (
@@ -293,7 +308,7 @@ function Row(props) {
                 </TableCell>
             </TableRow>
 
-            <TableRow>
+            <TableRow className={classes.hideOnSmall}>
                 <TableCell
                     style={{ paddingBottom: 0, paddingTop: 0 }}
                     colSpan={6}
@@ -380,6 +395,7 @@ const consensusDate = new Date(2021, 0, 26, 6, 56, 36);
 export default function MiniDrawer() {
     const classes = useStyles();
     const theme = useTheme();
+    const smallDisplay = useMediaQuery(theme.breakpoints.down('xs'));
     const [open, setOpen] = React.useState(false);
     const [valueInput, setValueInput] = React.useState('');
     const [rowsState, setRowsState] = React.useState([]);
@@ -503,6 +519,7 @@ export default function MiniDrawer() {
                                 horizontal: 'left',
                             }}
                             variant="dot"
+                            invisible={smallDisplay}
                         >
                             <Button
                                 aria-controls="simple-menu"
@@ -511,7 +528,12 @@ export default function MiniDrawer() {
                                 endIcon={<ArrowDropDownIcon />}
                                 style={{ textTransform: 'none', color: '#fff' }}
                             >
-                                wss://api.decloudf.com/
+                                <Box
+                                    component="div"
+                                    display={smallDisplay ? 'none' : 'block'}
+                                >
+                                    wss://api.decloudf.com/
+                                </Box>
                             </Button>
                         </StyledBadge>
 
@@ -611,7 +633,7 @@ export default function MiniDrawer() {
             <main className={classes.content}>
                 <div className={classes.toolbar} />
                 <Grid container spacing={1}>
-                    <Grid item xs={12} sm={4}>
+                    <Grid item xs={12} md={4}>
                         <Paper
                             elevation={0}
                             classes={{ root: classes.customColorProjectInfo }}
@@ -689,7 +711,7 @@ export default function MiniDrawer() {
                             </Grid>
                         </Paper>
                     </Grid>
-                    <Grid item xs={12} sm={4}>
+                    <Grid item xs={12} md={4}>
                         <Paper
                             elevation={0}
                             classes={{
@@ -723,7 +745,7 @@ export default function MiniDrawer() {
                             </Grid>
                         </Paper>
                     </Grid>
-                    <Grid item xs={12} sm={4}>
+                    <Grid item xs={12} md={4}>
                         <Paper
                             elevation={0}
                             classes={{ root: classes.customColorHackerPool }}
@@ -833,15 +855,37 @@ export default function MiniDrawer() {
                     >
                         <TableHead>
                             <TableRow>
-                                <TableCell />
+                                <TableCell className={classes.hideOnSmall} />
                                 <TableCell align="center">CID</TableCell>
-                                <TableCell align="center">Replicas</TableCell>
+                                <TableCell
+                                    align="center"
+                                    style={{
+                                        wordWrap: 'anywhere',
+                                    }}
+                                >
+                                    Replicas
+                                </TableCell>
                                 <TableCell align="center">File Size</TableCell>
-                                <TableCell align="center">
+                                <TableCell
+                                    align="center"
+                                    className={classes.hideOnSmall}
+                                >
                                     Last Storage Order
                                 </TableCell>
-                                <TableCell align="center">Expired On</TableCell>
-                                <TableCell align="center">Prepaid</TableCell>
+                                <TableCell
+                                    align="center"
+                                    style={{
+                                        wordWrap: 'anywhere',
+                                    }}
+                                >
+                                    Expired On
+                                </TableCell>
+                                <TableCell
+                                    align="center"
+                                    className={classes.hideOnSmall}
+                                >
+                                    Prepaid
+                                </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
