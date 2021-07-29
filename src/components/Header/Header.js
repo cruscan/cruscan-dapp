@@ -17,6 +17,10 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuOpen from '@material-ui/icons/MenuOpen';
 import Paper from '@material-ui/core/Paper';
+
+import Visibility from '@material-ui/icons/Visibility';
+import InputAdornment from '@material-ui/core/InputAdornment';
+
 import InputBase from '@material-ui/core/InputBase';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -43,33 +47,19 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-import AllInboxIcon from '@material-ui/icons/AllInbox';
-import AutorenewIcon from '@material-ui/icons/Autorenew';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
-import AppsIcon from '@material-ui/icons/Apps';
-import YoutubeSearchedForIcon from '@material-ui/icons/YoutubeSearchedFor';
+
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import ThumbsUpDownIcon from '@material-ui/icons/ThumbsUpDown';
-import SearchIcon from '@material-ui/icons/Search';
-import DirectionsIcon from '@material-ui/icons/Directions';
+
 import InfoIcon from '@material-ui/icons/Info';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import logo from '../../assets/logo/cruscan_full_v1-white.svg';
-import scanorder from '../../assets/svg/scanorder.svg';
-import SimpleTable from '../Table/Table';
 
-const drawerWidth = 240;
+import logo from '../../assets/logo/cruscan_full_v1-white.svg';
+
+import Sidebar from '../Sidebar/Sidebar';
+
+import style from '../../assets/jss/components/headerStyle';
 
 const StyledBadge = withStyles((theme) => ({
     badge: {
@@ -102,113 +92,7 @@ const StyledBadge = withStyles((theme) => ({
     },
 }))(Badge);
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-    },
-    appBar: {
-        zIndex: theme.zIndex.drawer + 1,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    appBarShift: {
-        marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    menuButton: {
-        marginRight: 8,
-    },
-    hide: {
-        display: 'none',
-    },
-    drawer: {
-        width: drawerWidth,
-        flexShrink: 0,
-        whiteSpace: 'nowrap',
-    },
-    drawerOpen: {
-        width: drawerWidth,
-        transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    drawerClose: {
-        transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        overflowX: 'hidden',
-        width: 0,
-        [theme.breakpoints.up('sm')]: {
-            width: theme.spacing(7) + 1,
-        },
-    },
-    toolbar: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        padding: theme.spacing(0, 1),
-        // necessary for content to be below app bar
-        ...theme.mixins.toolbar,
-    },
-    paper: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-        height: '100%',
-    },
-    content: {
-        flexGrow: 1,
-        // display: 'flex',
-        padding: theme.spacing(1),
-    },
-    logo: {
-        maxWidth: '190px',
-        marginRight: 'auto',
-    },
-    headerPadding: {
-        height: 10,
-    },
-    container: {
-        display: 'flex',
-    },
-    customColorProjectInfo: { background: '#7070e3' },
-    customColorHackerChallenge: { background: '#5a78f0' },
-    customColorHackerPool: { background: '#25b0e8' },
-    iconInCards: {
-        color: '#fff',
-    },
-    searchPaper: {
-        padding: '2px 4px',
-        display: 'flex',
-        marginRight: '20px',
-        marginTop: '10px',
-        alignItems: 'center',
-    },
-    input: {
-        marginLeft: theme.spacing(1),
-        flex: 1,
-    },
-    iconButton: {
-        padding: 10,
-    },
-    divider: {
-        height: 28,
-        margin: 4,
-    },
-    hideOnSmall: {
-        [theme.breakpoints.down('xs')]: {
-            display: 'none',
-        },
-    },
-}));
+const useStyles = makeStyles(style);
 
 function createData(name, calories, fat, carbs, protein, price) {
     return {
@@ -230,6 +114,7 @@ function Row(props) {
     const { row } = props;
     const [open, setOpen] = React.useState(false);
     const consensusDate = new Date(2021, 0, 26, 6, 56, 36);
+    console.log(row.reported_replica_count);
     return (
         <>
             <TableRow>
@@ -260,10 +145,10 @@ function Row(props) {
                     {row.cid}
                 </TableCell>
                 <TableCell align="center">
-                    {row.reported_replica_count ? (
-                        row.reported_replica_count
-                    ) : (
+                    {row.reported_replica_count === undefined ? (
                         <CircularProgress size={20} />
+                    ) : (
+                        row.reported_replica_count
                     )}
                 </TableCell>
                 <TableCell align="center">
@@ -392,16 +277,18 @@ Row.propTypes = {
 
 const consensusDate = new Date(2021, 0, 26, 6, 56, 36);
 
+export const SidebarContext = React.createContext();
+
 export default function MiniDrawer() {
     const classes = useStyles();
     const theme = useTheme();
     const smallDisplay = useMediaQuery(theme.breakpoints.down('xs'));
-    const [open, setOpen] = React.useState(false);
+
     const [valueInput, setValueInput] = React.useState('');
     const [rowsState, setRowsState] = React.useState([]);
     const [cidCruScan, setCidCruScan] = React.useState('');
     const [cruScanLink, setCruScanLink] = React.useState('');
-
+    const [open, setOpen] = React.useState(false);
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -451,6 +338,20 @@ export default function MiniDrawer() {
                     }
                 }
                 rowsState.unshift({ cid: valueInput, ...maybeFileUsedInfo[0] });
+                setRowsState([...rowsState]);
+            } else {
+                for (let i = 0; i < rowsState.length; i += 1) {
+                    if (valueInput === rowsState[i].cid) {
+                        rowsState.splice(i, 1);
+                        setRowsState([...rowsState]);
+                        break;
+                    }
+                }
+
+                rowsState.unshift({
+                    cid: valueInput,
+                    reported_replica_count: 'Not found',
+                });
                 setRowsState([...rowsState]);
             }
 
@@ -558,77 +459,9 @@ export default function MiniDrawer() {
                     </div>
                 </Toolbar>
             </AppBar>
-            <Drawer
-                variant="permanent"
-                className={clsx(classes.drawer, {
-                    [classes.drawerOpen]: open,
-                    [classes.drawerClose]: !open,
-                })}
-                classes={{
-                    paper: clsx({
-                        [classes.drawerOpen]: open,
-                        [classes.drawerClose]: !open,
-                    }),
-                }}
-            >
-                <div className={classes.toolbar}>
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'rtl' ? (
-                            <ChevronRightIcon />
-                        ) : (
-                            <ChevronLeftIcon />
-                        )}
-                    </IconButton>
-                </div>
-                <Divider />
-                <List>
-                    <ListItem button key="home">
-                        <ListItemIcon>
-                            <AppsIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Home" />
-                    </ListItem>
-                    <ListItem button key="orderscan" disabled>
-                        <ListItemIcon>
-                            <YoutubeSearchedForIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Order Scan" />
-                    </ListItem>
-                    <ListItem button key="accountorders" disabled>
-                        <ListItemIcon>
-                            <AllInboxIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Account Orders" />
-                    </ListItem>
-                    <ListItem button disabled key="getjson">
-                        <ListItemIcon>
-                            <AllInclusiveIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Get CID json" />
-                    </ListItem>
-                    <ListItem button disabled key="placestorageorder">
-                        <ListItemIcon>
-                            <CloudUploadIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Place Storage Order" />
-                    </ListItem>
-                    <ListItem button disabled key="reneworder">
-                        <ListItemIcon>
-                            <AutorenewIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Renew Order" />
-                    </ListItem>
-                </List>
-                <Divider />
-                <List>
-                    <ListItem button disabled key="reneworder">
-                        <ListItemIcon>
-                            <InfoIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="About Cruscan" />
-                    </ListItem>
-                </List>
-            </Drawer>
+            <SidebarContext.Provider value={{ open, handleDrawerClose }}>
+                <Sidebar />
+            </SidebarContext.Provider>
 
             <main className={classes.content}>
                 <div className={classes.toolbar} />
