@@ -8,6 +8,7 @@
     "rules": {
         "no-unused-vars": "warn",
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-        "react/forbid-prop-types": "warn"
+        "react/forbid-prop-types": "warn",
+        "import/no-cycle": "warn"
     }
 }
