@@ -8,14 +8,12 @@ import {
 } from 'react-router-dom';
 
 // core components
-import Home from './layouts/Home';
-import Explore from './layouts/Explore';
+import Explore from './layouts/Explore/Explore';
 
 ReactDOM.render(
     <Router>
         <Switch>
             <Route path="/home" component={Explore} />
-            <Route path="/order" component={Explore} />
             <Redirect from="/" to="/home" />
         </Switch>
     </Router>,

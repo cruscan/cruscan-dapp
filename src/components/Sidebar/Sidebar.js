@@ -23,7 +23,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
 // eslint-disable-next-line import/no-cycle
-import { SidebarContext } from '../Header/Header';
+import { OpenSideBarContext } from '../../layouts/Explore/Explore';
 
 import style from '../../assets/jss/components/sidebarStyle';
 
@@ -32,23 +32,23 @@ const useStyles = makeStyles(style);
 export default function Sidebar() {
     const classes = useStyles();
     const theme = useTheme();
-    const sidebarVar = useContext(SidebarContext);
+    const openSideBar = useContext(OpenSideBarContext);
     return (
         <Drawer
             variant="permanent"
             className={clsx(classes.drawer, {
-                [classes.drawerOpen]: sidebarVar.open,
-                [classes.drawerClose]: !sidebarVar.open,
+                [classes.drawerOpen]: openSideBar.open,
+                [classes.drawerClose]: !openSideBar.open,
             })}
             classes={{
                 paper: clsx({
-                    [classes.drawerOpen]: sidebarVar.open,
-                    [classes.drawerClose]: !sidebarVar.open,
+                    [classes.drawerOpen]: openSideBar.open,
+                    [classes.drawerClose]: !openSideBar.open,
                 }),
             }}
         >
             <div className={classes.toolbar}>
-                <IconButton onClick={sidebarVar.handleDrawerClose}>
+                <IconButton onClick={openSideBar.handleDrawerClose}>
                     {theme.direction === 'rtl' ? (
                         <ChevronRightIcon />
                     ) : (
