@@ -1,10 +1,7 @@
 import React, { createContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles/';
-
 import CssBaseline from '@material-ui/core/CssBaseline';
-
 import { Switch, Route, Redirect } from 'react-router-dom';
-
 import Home from '../../views/Home/Home';
 import Header from '../../components/Header/Header';
 import Sidebar from '../../components/Sidebar/Sidebar';

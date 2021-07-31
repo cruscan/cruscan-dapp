@@ -1,64 +1,19 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme, withStyles } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-
-import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuOpen from '@material-ui/icons/MenuOpen';
-import Paper from '@material-ui/core/Paper';
-
-import Visibility from '@material-ui/icons/Visibility';
-import InputAdornment from '@material-ui/core/InputAdornment';
-
-import InputBase from '@material-ui/core/InputBase';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import PropTypes from 'prop-types';
-import Collapse from '@material-ui/core/Collapse';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import Badge from '@material-ui/core/Badge';
-import axios from 'axios';
-
-import CircularProgress from '@material-ui/core/CircularProgress';
-
-import { ApiPromise, WsProvider } from '@polkadot/api';
-import { typesBundleForPolkadot } from '@crustio/type-definitions';
-
-import ShareIcon from '@material-ui/icons/Share';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import ThumbsUpDownIcon from '@material-ui/icons/ThumbsUpDown';
-
-import InfoIcon from '@material-ui/icons/Info';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-
 import logo from '../../assets/logo/cruscan_full_v1-white.svg';
-
-import Sidebar from '../Sidebar/Sidebar';
-
 import style from '../../assets/jss/components/headerStyle';
 import { OpenSideBarContext } from '../../layouts/Explore/Explore';
 
