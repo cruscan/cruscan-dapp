@@ -23,7 +23,7 @@ export default function GlobalAnnounce() {
     useEffect(() => {
         axios
             .get(
-                'https://raw.githubusercontent.com/cruscan/release-info/main/v1.0.0.json'
+                'https://raw.githubusercontent.com/cruscan/cruscan-dapp/main/release/v1.0.1.json'
             )
             .then((res) => {
                 setCidCruScan(res.data.cid);
