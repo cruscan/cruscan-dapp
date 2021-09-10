@@ -9,6 +9,7 @@
         "no-unused-vars": "warn",
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "react/forbid-prop-types": "warn",
-        "import/no-cycle": "warn"
+        "import/no-cycle": "warn",
+        "react/prop-types": "warn"
     }
 }

@@ -23,7 +23,7 @@ export default function GlobalAnnounce() {
     useEffect(() => {
         axios
             .get(
-                'https://raw.githubusercontent.com/cruscan/cruscan-dapp/main/release/v1.0.1.json'
+                'https://raw.githubusercontent.com/cruscan/cruscan-dapp/main/release/v1.0.2.json'
             )
             .then((res) => {
                 setCidCruScan(res.data.cid);
@@ -134,7 +134,8 @@ export default function GlobalAnnounce() {
                                         textAlign="left"
                                         fontWeight="400"
                                     >
-                                        DDOS challenge. I dare you, hackers!
+                                        This website is build on IPFS and pinned
+                                        on Crust Network
                                     </Box>
                                 </Grid>
                             </Grid>
@@ -165,7 +166,8 @@ export default function GlobalAnnounce() {
                                         textAlign="left"
                                         fontWeight="400"
                                     >
-                                        Hackers&apos;s reward if success
+                                        The maintaining fee for the website is
+                                        zero.
                                     </Box>
                                 </Grid>
                             </Grid>
