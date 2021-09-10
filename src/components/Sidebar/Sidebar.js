@@ -64,45 +64,6 @@ export default function Sidebar() {
                     </ListItemIcon>
                     <ListItemText primary="Home" />
                 </ListItem>
-                <ListItem button key="orderscan" disabled>
-                    <ListItemIcon>
-                        <YoutubeSearchedForIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Order Scan" />
-                </ListItem>
-                <ListItem button key="accountorders" disabled>
-                    <ListItemIcon>
-                        <AllInboxIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Account Orders" />
-                </ListItem>
-                <ListItem button disabled key="getjson">
-                    <ListItemIcon>
-                        <AllInclusiveIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Get CID json" />
-                </ListItem>
-                <ListItem button disabled key="placestorageorder">
-                    <ListItemIcon>
-                        <CloudUploadIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Place Storage Order" />
-                </ListItem>
-                <ListItem button disabled key="reneworder">
-                    <ListItemIcon>
-                        <AutorenewIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Renew Order" />
-                </ListItem>
-            </List>
-            <Divider />
-            <List>
-                <ListItem button disabled key="reneworder">
-                    <ListItemIcon>
-                        <InfoIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="About Cruscan" />
-                </ListItem>
             </List>
         </Drawer>
     );

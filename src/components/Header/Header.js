@@ -15,7 +15,6 @@ import Menu from '@material-ui/core/Menu';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import logo from '../../assets/logo/cruscan_full_v1-white.svg';
 import style from '../../assets/jss/components/headerStyle';
-import { OpenSideBarContext } from '../../layouts/Explore/Explore';
 
 const StyledBadge = withStyles((theme) => ({
     badge: {
@@ -57,7 +56,6 @@ export default function Header() {
     const theme = useTheme();
     const smallDisplay = useMediaQuery(theme.breakpoints.down('xs'));
 
-    const openSideBar = useContext(OpenSideBarContext);
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const handleClick = (event) => {
@@ -77,28 +75,6 @@ export default function Header() {
             style={{ background: '#343434' }}
         >
             <Toolbar>
-                <IconButton
-                    color="inherit"
-                    aria-label="open drawer"
-                    onClick={openSideBar.handleDrawerOpen}
-                    edge="start"
-                    className={clsx(classes.menuButton, {
-                        [classes.hide]: openSideBar.open,
-                    })}
-                >
-                    <MenuIcon />
-                </IconButton>
-                <IconButton
-                    color="inherit"
-                    aria-label="open drawer"
-                    onClick={openSideBar.handleDrawerClose}
-                    edge="start"
-                    className={clsx(classes.menuButton, {
-                        [classes.hide]: !openSideBar.open,
-                    })}
-                >
-                    <MenuOpen />
-                </IconButton>
                 <img src={logo} alt="Logo" className={classes.logo} />
 
                 <div>
@@ -136,13 +112,6 @@ export default function Header() {
                     >
                         <MenuItem onClick={handleClose}>
                             wss://api.decloudf.com/
-                        </MenuItem>
-                        <MenuItem onClick={handleClose} disabled>
-                            wss://api.crust.network
-                        </MenuItem>
-
-                        <MenuItem onClick={handleClose} disabled>
-                            Share your WebSocket
                         </MenuItem>
                     </Menu>
                 </div>

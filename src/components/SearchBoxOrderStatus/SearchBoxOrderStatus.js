@@ -61,51 +61,42 @@ function Row(props) {
                     {row.cid}
                 </TableCell>
                 <TableCell align="center">
-                    {row.reported_replica_count === undefined ? (
+                    {row.reported_replica_count === null ? (
                         <CircularProgress size={20} />
                     ) : (
                         row.reported_replica_count
                     )}
                 </TableCell>
                 <TableCell align="center">
-                    {row.file_size ? (
-                        `${
-                            Math.round((row.file_size / 1024 / 1024) * 100) /
-                            100
-                        }MB`
-                    ) : (
-                        <CircularProgress size={20} />
-                    )}
+                    {row.file_size
+                        ? `${
+                              Math.round((row.file_size / 1024 / 1024) * 100) /
+                              100
+                          }MB`
+                        : ''}
                 </TableCell>
                 <TableCell align="center" className={classes.hideOnSmall}>
-                    {row.calculated_at ? (
-                        new Date(
-                            consensusDate.getTime() +
-                                row.calculated_at * 6 * 1000
-                        )
-                            .toISOString()
-                            .split('T')[0]
-                    ) : (
-                        <CircularProgress size={20} />
-                    )}
+                    {row.calculated_at
+                        ? new Date(
+                              consensusDate.getTime() +
+                                  row.calculated_at * 6 * 1000
+                          )
+                              .toISOString()
+                              .split('T')[0]
+                        : ''}
                 </TableCell>
                 <TableCell align="center">
-                    {row.expired_on ? (
-                        new Date(
-                            consensusDate.getTime() + row.expired_on * 6 * 1000
-                        )
-                            .toISOString()
-                            .split('T')[0]
-                    ) : (
-                        <CircularProgress size={20} />
-                    )}
+                    {row.expired_on
+                        ? new Date(
+                              consensusDate.getTime() +
+                                  row.expired_on * 6 * 1000
+                          )
+                              .toISOString()
+                              .split('T')[0]
+                        : ''}
                 </TableCell>
                 <TableCell align="center" className={classes.hideOnSmall}>
-                    {typeof row.prepaid === 'number' ? (
-                        row.prepaid
-                    ) : (
-                        <CircularProgress size={20} />
-                    )}
+                    {typeof row.prepaid === 'number' ? row.prepaid : ''}
                 </TableCell>
             </TableRow>
 
@@ -171,25 +162,6 @@ function Row(props) {
     );
 }
 
-Row.propTypes = {
-    row: PropTypes.shape({
-        cid: PropTypes.string.isRequired,
-        amount: PropTypes.number,
-        calculated_at: PropTypes.number,
-        replicas: PropTypes.arrayOf(
-            PropTypes.shape({
-                anchor: PropTypes.string,
-                is_reported: PropTypes.bool,
-                valid_at: PropTypes.number,
-                who: PropTypes.string,
-            })
-        ),
-        reported_replica_count: PropTypes.number,
-        expired_on: PropTypes.number,
-        file_size: PropTypes.number,
-        prepaid: PropTypes.number,
-    }).isRequired,
-};
 export default function SearchBoxOrderStatus() {
     const classes = useStyles();
 
@@ -205,7 +177,17 @@ export default function SearchBoxOrderStatus() {
                     break;
                 }
             }
-            rowsState.unshift({ cid: valueInput, replicas: [] });
+
+            rowsState.unshift({
+                cid: valueInput,
+                replicas: [],
+                amount: null,
+                calculated_at: null,
+                expired_on: null,
+                file_size: null,
+                prepaid: null,
+                reported_replica_count: null,
+            });
             setRowsState([...rowsState]);
 
             const wsProvider = new WsProvider('wss://api.decloudf.com/');
@@ -214,10 +196,14 @@ export default function SearchBoxOrderStatus() {
                 typesBundle: typesBundleForPolkadot,
             });
             await api.isReadyOrError;
+            let maybeFileUsedInfo = null;
+            try {
+                maybeFileUsedInfo = JSON.parse(
+                    await api.query.market.files(valueInput)
+                );
+                // eslint-disable-next-line no-empty
+            } catch (e) {}
 
-            const maybeFileUsedInfo = JSON.parse(
-                await api.query.market.files(valueInput)
-            );
             if (maybeFileUsedInfo) {
                 for (let i = 0; i < rowsState.length; i += 1) {
                     if (valueInput === rowsState[i].cid) {
@@ -236,10 +222,16 @@ export default function SearchBoxOrderStatus() {
                         break;
                     }
                 }
-
+                console.log('Not found');
                 rowsState.unshift({
                     cid: valueInput,
                     reported_replica_count: 'Not found',
+                    replicas: [],
+                    amount: '',
+                    calculated_at: '',
+                    expired_on: '',
+                    file_size: '',
+                    prepaid: '',
                 });
                 setRowsState([...rowsState]);
             }
