@@ -190,7 +190,7 @@ export default function SearchBoxOrderStatus() {
             });
             setRowsState([...rowsState]);
 
-            const wsProvider = new WsProvider('wss://api.decloudf.com/');
+            const wsProvider = new WsProvider('wss://rpc.crust.network');
             const api = await ApiPromise.create({
                 provider: wsProvider,
                 typesBundle: typesBundleForPolkadot,
@@ -198,9 +198,9 @@ export default function SearchBoxOrderStatus() {
             await api.isReadyOrError;
             let maybeFileUsedInfo = null;
             try {
-                maybeFileUsedInfo = JSON.parse(
-                    await api.query.market.files(valueInput)
-                );
+                const rawInfo = await api.query.market.files(valueInput);
+                maybeFileUsedInfo = JSON.parse(rawInfo);
+   
                 // eslint-disable-next-line no-empty
             } catch (e) {}
 
@@ -212,7 +212,7 @@ export default function SearchBoxOrderStatus() {
                         break;
                     }
                 }
-                rowsState.unshift({ cid: valueInput, ...maybeFileUsedInfo[0] });
+                rowsState.unshift({ cid: valueInput, ...maybeFileUsedInfo });
                 setRowsState([...rowsState]);
             } else {
                 for (let i = 0; i < rowsState.length; i += 1) {
@@ -222,7 +222,6 @@ export default function SearchBoxOrderStatus() {
                         break;
                     }
                 }
-                console.log('Not found');
                 rowsState.unshift({
                     cid: valueInput,
                     reported_replica_count: 'Not found',

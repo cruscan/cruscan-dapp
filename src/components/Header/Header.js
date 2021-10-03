@@ -98,7 +98,7 @@ export default function Header() {
                                 component="div"
                                 display={smallDisplay ? 'none' : 'block'}
                             >
-                                wss://api.decloudf.com/
+                                wss://rpc.crust.network
                             </Box>
                         </Button>
                     </StyledBadge>
