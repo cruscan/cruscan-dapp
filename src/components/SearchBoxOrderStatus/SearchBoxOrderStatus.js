@@ -30,7 +30,7 @@ function Row(props) {
     const classes = useStyles();
     const { row } = props;
     const [open, setOpen] = useState(false);
-    const consensusDate = new Date(2021, 0, 26, 6, 56, 36);
+    const consensusDate = new Date(2021, 6, 9, 7, 50, 30);
     return (
         <>
             <TableRow>
@@ -86,10 +86,10 @@ function Row(props) {
                         : ''}
                 </TableCell>
                 <TableCell align="center">
-                    {row.expired_on
+                    {row.expired_at
                         ? new Date(
                               consensusDate.getTime() +
-                                  row.expired_on * 6 * 1000
+                                  row.expired_at * 6 * 1000
                           )
                               .toISOString()
                               .split('T')[0]
@@ -183,7 +183,7 @@ export default function SearchBoxOrderStatus() {
                 replicas: [],
                 amount: null,
                 calculated_at: null,
-                expired_on: null,
+                expired_at: null,
                 file_size: null,
                 prepaid: null,
                 reported_replica_count: null,
@@ -200,7 +200,7 @@ export default function SearchBoxOrderStatus() {
             try {
                 const rawInfo = await api.query.market.files(valueInput);
                 maybeFileUsedInfo = JSON.parse(rawInfo);
-   
+                console.log(maybeFileUsedInfo)
                 // eslint-disable-next-line no-empty
             } catch (e) {}
 
@@ -228,7 +228,7 @@ export default function SearchBoxOrderStatus() {
                     replicas: [],
                     amount: '',
                     calculated_at: '',
-                    expired_on: '',
+                    expired_at: '',
                     file_size: '',
                     prepaid: '',
                 });
